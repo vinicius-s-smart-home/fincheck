@@ -30,6 +30,10 @@ jobs:
               run: npm install
               working-directory: api
 
+            - name: Generate prismaclient
+              run: npx prisma generate
+              working-directory: api
+
             - name: Build project
               run: npm run build
               working-directory: api
