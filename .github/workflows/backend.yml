@@ -46,7 +46,7 @@ jobs:
               working-directory: api
 
             - name: Copy prisma
-              run: cp -r prisma/* /home/vinicius/apps/fincheck-api/prisma
+              run: cp -r prisma /home/vinicius/apps/fincheck-api
               working-directory: api
 
             - name: Copy dependencies
