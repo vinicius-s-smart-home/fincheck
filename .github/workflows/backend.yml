@@ -47,6 +47,7 @@ jobs:
 
             - name: Copy package.json
               run: cp -R package.json /home/vinicius/apps/fincheck-api/package.json
+              working-directory: api
 
             - name: Copy dependencies
               run: cp -r node_modules /home/vinicius/apps/fincheck-api
