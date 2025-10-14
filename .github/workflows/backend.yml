@@ -1,0 +1,40 @@
+name: Deploy Backend
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    build:
+        runs-on: self-hosted
+        name: Deploy Backend
+
+        strategy:
+            matrix:
+                node-version: [22.x]
+
+        if: github.ref == 'refs/heads/master'
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Install dependencies
+              run: npm install
+              working-directory: api
+
+            - name: Build project
+              run: npm run build
+              working-directory: api
+
+            - name: Copy build to app folder
+              run: cp -r dist/* /home/vinicius/apps/fincheck-api
+              working-directory: api
+
+            - name: Copy dependencies to app folder
+              run: cp -r node_modules /home/vinicius/apps/fincheck-api
+              working-directory: api
