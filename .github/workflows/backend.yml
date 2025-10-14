@@ -45,8 +45,8 @@ jobs:
               run: cp -r dist/* /home/vinicius/apps/fincheck-api
               working-directory: api
 
-            - name: Copy package.json
-              run: cp -R package.json /home/vinicius/apps/fincheck-api/package.json
+            - name: Copy prisma
+              run: cp -r prisma/* /home/vinicius/apps/fincheck-api/prisma
               working-directory: api
 
             - name: Copy dependencies
