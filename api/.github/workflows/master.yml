@@ -1,0 +1,36 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    runs-on: self-hosted
+    name: Deploy to Production
+
+    strategy:
+      matrix:
+        node-version: [22.x]
+
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Instala as dependências do projeto
+      - name: Install dependencies of project
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Copy build to app folder
+        run: cp -r dist/* /home/vinicius/apps/fincheck-api
+
+      - name: Copy dependencies to app folder
+        run: cp -r node_modules /home/vinicius/apps/fincheck-api
