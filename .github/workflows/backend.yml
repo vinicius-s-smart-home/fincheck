@@ -18,10 +18,10 @@ jobs:
         steps:
             - uses: actions/checkout@v2
 
-            - name: Use Node.js ${{ matrix.node-version }}
+            - name: Use Node.js
               uses: actions/setup-node@v1
               with:
-                  node-version: ${{ matrix.node-version }}
+                  node-version: 22.x
 
             - name: Copy environment
               run: cp /home/vinicius/apps/environment/.env api/.env
@@ -30,14 +30,21 @@ jobs:
               run: npm install
               working-directory: api
 
+            - name: Generate Prisma Client
+              run: npx prisma generate --binary-targets native,linux-musl-openssl-3.0.x
+              working-directory: api
+
             - name: Build project
               run: npm run build
               working-directory: api
 
-            - name: Copy build to app folder
+            - name: Clean old app
+              run: rm -rf /home/vinicius/apps/fincheck-api/*
+
+            - name: Copy build
               run: cp -r dist/* /home/vinicius/apps/fincheck-api
               working-directory: api
 
-            - name: Copy dependencies to app folder
+            - name: Copy dependencies
               run: cp -r node_modules /home/vinicius/apps/fincheck-api
               working-directory: api
