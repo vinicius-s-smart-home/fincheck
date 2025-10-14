@@ -34,7 +34,3 @@ jobs:
             - name: Copy build to app folder
               run: cp -r dist/* /home/vinicius/apps/fincheck-web
               working-directory: frontend
-
-            - name: Copy dependencies to app folder
-              run: cp -r node_modules /home/vinicius/apps/fincheck-web
-              working-directory: frontend
