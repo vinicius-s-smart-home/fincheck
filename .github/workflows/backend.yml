@@ -52,3 +52,6 @@ jobs:
             - name: Copy dependencies
               run: cp -r node_modules /home/vinicius/apps/fincheck-api
               working-directory: api
+
+            - name: Restart service
+              run: pm2 reload all
