@@ -3,7 +3,7 @@ import { localStorageKeys } from '../config/localStorageKeys'
 import { sleep } from '../utils/sleep'
 
 export const httpClient = axios.create({
-  baseURL: `${window.location.origin}/api`,
+  baseURL: `${(import.meta.env.VITE_USE_API === "true" ? import.meta.env.VITE_API_URL : window.location.origin + '/api')}`,
 })
 
 httpClient.interceptors.request.use(async config => {
