@@ -1,9 +1,8 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useWindowWidth } from '../../../../../app/hooks/useWindowWidth'
 import { useDashboard } from '../DashboardContext/useDashboard'
 import { useBankAccounts } from '../../../../../app/hooks/useBankAccounts'
 import { useTransactions } from '../../../../../app/hooks/useTransactions'
-import { TransactionsFilters } from '../../../../../app/services/transactionsService/getAll'
 
 export function useAccountsController() {
   const windowWidth = useWindowWidth()
@@ -24,12 +23,10 @@ export function useAccountsController() {
     return accounts.reduce((total, account) => total + account.currentBalance, 0)
   }, [accounts])
 
-  const filters: TransactionsFilters = {
+  const { transactions } = useTransactions({
     month: new Date().getMonth(),
     year: new Date().getFullYear(),
-  }
-
-  const { transactions, isLoading, isInitialLoading, refetchTransactions } = useTransactions(filters)
+  })
 
   const currentRevenue = useMemo(() => {
     return transactions
